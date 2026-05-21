@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     q: 'Como funciona a manutenção?',
-    a: 'A manutenção é mínima, consistindo basicamente na limpeza periódica dos painéis com água. Recomenda-se uma revisão técnica anual, que a NPA pode realizar para garantir que o sistema continue operando em pico de eficiência.',
+    a: 'A manutenção é mínima, consistindo basicamente na limpeza periódica dos painéis com água. Recomenda-se uma revisão técnica anual para garantir que o sistema continue operando em pico de eficiência.',
   },
   {
     q: 'O que acontece em dias nublados ou à noite?',
@@ -33,16 +33,15 @@ const FAQ: React.FC = () => {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-24 bg-primary relative overflow-hidden">
-      {/* Dynamic background detail */}
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,_rgba(218,165,32,0.05),transparent_40%)] pointer-events-none" />
+    <section id="faq" className="py-16 md:py-20 bg-[#00357b] relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,_rgba(255,207,30,0.05),transparent_40%)] pointer-events-none" />
       
-      <div className="max-w-[800px] mx-auto px-8 relative z-10">
-        <div className="text-center mb-16">
-          <span className="text-secondary font-black text-xs uppercase tracking-widest mb-4 block">
+      <div className="max-w-[800px] mx-auto px-6 relative z-10">
+        <div className="text-center mb-12">
+          <span className="text-[#ffcf1e] font-bold text-xs uppercase tracking-widest mb-4 block">
             Dúvidas Frequentes
           </span>
-          <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">
+          <h2 className="text-2xl md:text-4xl font-bold text-white leading-tight">
             Transparência em <br/> cada detalhe
           </h2>
         </div>
@@ -53,22 +52,22 @@ const FAQ: React.FC = () => {
               key={i} 
               className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                 open === i 
-                  ? 'border-secondary/30 bg-white/5' 
+                  ? 'border-[#ffcf1e]/30 bg-white/5' 
                   : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.04]'
               }`}
             >
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full px-6 py-6 flex justify-between items-center gap-4 text-left group"
+                className="w-full px-6 py-5 flex justify-between items-center gap-4 text-left group"
               >
                 <span className={`text-base md:text-lg font-bold transition-colors duration-300 ${
-                  open === i ? 'text-secondary' : 'text-white'
+                  open === i ? 'text-[#ffcf1e]' : 'text-white'
                 }`}>
                   {item.q}
                 </span>
                 <ChevronDown 
                   size={20} 
-                  className={`flex-shrink-0 text-secondary transition-transform duration-500 ${
+                  className={`flex-shrink-0 text-[#ffcf1e] transition-transform duration-500 ${
                     open === i ? 'rotate-180' : ''
                   }`} 
                 />
@@ -82,7 +81,7 @@ const FAQ: React.FC = () => {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
                   >
-                    <div className="px-6 pb-6 text-white/60 text-base leading-relaxed">
+                    <div className="px-6 pb-5 text-white/60 text-base leading-relaxed">
                       {item.a}
                     </div>
                   </motion.div>
@@ -92,7 +91,7 @@ const FAQ: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
+        <div className="mt-12 text-center">
           <p className="text-white/40 text-sm italic">
             Ainda tem dúvidas? Fale diretamente com um consultor técnico via WhatsApp.
           </p>

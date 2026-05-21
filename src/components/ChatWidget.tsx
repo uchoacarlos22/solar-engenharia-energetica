@@ -2,7 +2,7 @@ import React from "react";
 import { trackWA, WA_BASE } from "../theme";
 
 const ChatWidget: React.FC = () => {
-  const waMsg = encodeURIComponent('Olá, NPA! Gostaria de falar com um especialista em energia solar.');
+  const waMsg = encodeURIComponent('Olá! Gostaria de falar com um especialista em energia solar.');
 
   return (
     <a 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { trackWA, WA_BASE } from "../theme";
-import logo from "../assets/images/npa_logo_sf.png";
+import logo from "../assets/images/es-logo-sf.png";
 import { Menu, X } from "lucide-react";
 
 const Header: React.FC = () => {
@@ -11,11 +11,11 @@ const Header: React.FC = () => {
     { label: "Portfolio", id: "portfolio" },
     { label: "Promoções", id: "promocoes" },
     { label: "Processo", id: "como-funciona" },
-    { label: "Diferencial", id: "por-que-npa" },
+    { label: "Diferencial", id: "diferencial" },
   ];
 
   const waMsg = encodeURIComponent(
-    "Olá, NPA! 👋 Vi o site de energia solar e gostaria de solicitar uma simulação gratuita. Podem me atender?",
+    "Olá, Edu Santos! 👋 Vi o site de energia solar e gostaria de solicitar uma simulação gratuita. Podem me atender?",
   );
 
   const scrollTo = (id: string) => {
@@ -24,15 +24,14 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-white top-0 sticky z-50 border-b border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)] w-full w-full">
-      <div className="max-w-[1200px] mx-auto flex justify-between items-center h-16.5 px-8 w-full">
+    <header className="bg-white top-0 sticky z-50 border-b border-gray-100 py-2 shadow-[0_20px_50px_rgba(0,0,0,0.05)] w-full w-full">
+      <div className="max-w-[1200px] mx-auto flex justify-between items-center h-18.5 px-8 w-full">
         {/* Logo */}
         <div
           className="flex items-center cursor-pointer"
           onClick={() => scrollTo("hero")}
         >
-          {/* Alternativa caso queira o texto: <div className="text-2xl font-black text-blue-950 tracking-tighter">NPA Solar</div> */}
-          <img src={logo} alt="NPA Solar" className="h-24 w-24 pt-2" />
+          <img src={logo} alt="Edu Santos Energia Solar" className="h-24 w-32 pt-2" />
         </div>
 
         {/* Desktop Nav */}
@@ -41,7 +40,7 @@ const Header: React.FC = () => {
             <button
               key={link.id}
               onClick={() => scrollTo(link.id)}
-              className="font-headline-lg uppercase text-sm font-bold text-on-primary-fixed-variant hover:text-secondary-fixed-dim transition-colors duration-300"
+              className="text-[#00357b] uppercase text-sm font-bold hover:text-[#daa520] transition-colors duration-300"
             >
               {link.label}
             </button>
@@ -52,7 +51,7 @@ const Header: React.FC = () => {
         <div className="hidden md:flex gap-4 items-center">
           <button
             onClick={() => scrollTo("contato")}
-            className="font-headline-md uppercase text-sm font-bold px-6 py-3 border border-primary text-primary hover:bg-primary hover:text-white transition-all select-none"
+            className="text-[#00357b] uppercase text-sm font-bold px-6 py-3 border-2 border-[#00357b] hover:bg-[#daa520] hover:text-white hover:border-[#daa520] transition-all select-none"
           >
             Orçamento
           </button>
@@ -61,7 +60,7 @@ const Header: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackWA("header")}
-            className="bg-secondary-container text-white font-headline-md uppercase text-sm font-bold px-6 py-3 hover:bg-secondary-fixed transition-all shadow-lg select-none flex items-center justify-center"
+            className="bg-[#ffcf1e] text-[#705900] uppercase text-sm font-bold px-6 py-3 hover:bg-[#ffe087] transition-all shadow-lg select-none flex items-center justify-center"
           >
             Simulação Grátis
           </a>
@@ -69,7 +68,7 @@ const Header: React.FC = () => {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-primary"
+          className="md:hidden text-[#00357b]"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -84,7 +83,7 @@ const Header: React.FC = () => {
               <button
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
-                className="font-headline-lg tracking-widest uppercase text-sm font-bold text-on-primary-fixed-variant hover:text-secondary-fixed-dim text-left"
+                className="text-[#00357b] tracking-widest uppercase text-sm font-bold hover:text-[#daa520] text-left"
               >
                 {link.label}
               </button>
@@ -101,7 +100,7 @@ const Header: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackWA("header_mobile")}
-                className="text-center bg-secondary-container text-on-secondary-fixed font-headline-md tracking-widest uppercase text-sm font-bold px-6 py-4 shadow-lg"
+                className="text-center bg-[#ffcf1e] text-[#705900] uppercase text-sm font-bold px-6 py-4 shadow-lg"
               >
                 Simulação Grátis
               </a>

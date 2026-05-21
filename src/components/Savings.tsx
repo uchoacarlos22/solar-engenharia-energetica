@@ -1,19 +1,13 @@
-/**
- * Savings.tsx — ATUALIZADO com dados reais dos orçamentos
- */
-
 import React, { useState } from 'react';
 import { trackWA, WA_BASE } from '../theme';
 import { Calculator, TrendingUp, Clock, Zap } from 'lucide-react';
 
-// Parâmetros reais do PDF (orçamento Fabíola / DJG-Solar)
-const TARIFA_KWH = 0.80;          // R$/kWh (dado do PDF)
-const REAJUSTE_ANUAL = 0.06;      // 6% ao ano (dado do PDF)
-const ECONOMIA_PERCENT = 0.95;    // 95% de economia (sistema on-grid típico)
-const CUSTO_POR_KWP = 2625;      // R$/kWp (baseado em R$26.468 / 10.08kWp)
-const ANOS_VIDA = 25;             // vida útil garantida dos módulos
+const TARIFA_KWH = 0.80;
+const REAJUSTE_ANUAL = 0.06;
+const ECONOMIA_PERCENT = 0.95;
+const CUSTO_POR_KWP = 2625;
+const ANOS_VIDA = 25;
 
-// Calcula economia acumulada com reajuste tarifário de 6% ao ano
 function calcEconomia25Anos(economiaMensal: number): number {
   let total = 0;
   let mensal = economiaMensal;
@@ -27,26 +21,18 @@ function calcEconomia25Anos(economiaMensal: number): number {
 const Savings: React.FC = () => {
   const [bill, setBill] = useState(800);
 
-  // Economia mensal estimada
   const economiaMensal = Math.round(bill * ECONOMIA_PERCENT);
   const economiaAnual  = economiaMensal * 12;
-
-  // Investimento estimado pelo consumo
-  // kWh consumido ≈ bill / tarifa
   const kwh = bill / TARIFA_KWH;
-  // kWp necessário ≈ kwh / 130 (geração média SP, dados PHB Solar)
   const kwpNecessario = kwh / 130;
   const investimentoEstimado = Math.round(kwpNecessario * CUSTO_POR_KWP);
 
-  // Payback (anos)
   const paybackAnos = economiaAnual > 0
     ? (investimentoEstimado / economiaAnual).toFixed(1)
     : "—";
 
-  // Economia acumulada em 25 anos (com reajuste)
   const economia25Anos = Math.round(calcEconomia25Anos(economiaMensal));
 
-  // Parcela mínima estimada de financiamento (24x, taxa ~1.3%/mês)
   const TAXA_MENSAL = 0.013;
   const parcela24x = Math.round(
     (investimentoEstimado * TAXA_MENSAL) / (1 - Math.pow(1 + TAXA_MENSAL, -24))
@@ -61,37 +47,35 @@ const Savings: React.FC = () => {
   );
 
   return (
-    <section id="simulador" className="py-section-padding bg-surface-container">
-      <div className="container-max mx-auto px-8">
+    <section id="simulador" className="py-16 md:py-20 bg-surface-container">
+      <div className="max-w-[1280px] mx-auto px-6">
 
-        {/* Header */}
         <div className="text-center mb-12">
-          <span className="font-label-caps text-label-caps text-secondary uppercase block mb-2">
+          <span className="text-sm font-bold uppercase tracking-wider text-[#daa520] block mb-2">
             Simulador de economia
           </span>
-          <h2 className="font-display-lg text-headline-lg md:text-display-lg text-primary leading-tight mb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-primary-brand leading-tight mb-4">
             Quanto você vai economizar?
           </h2>
-          <p className="font-body-lg text-body-lg text-on-surface-variant max-w-xl mx-auto">
+          <p className="text-lg text-on-surface-variant max-w-xl mx-auto">
             Baseado na tarifa real de R$ 0,80/kWh com reajuste de 6% ao ano — os mesmos parâmetros usados nos nossos orçamentos.
           </p>
         </div>
 
         <div className="flex flex-col lg:flex-row items-start gap-10">
 
-          {/* Slider */}
           <div className="w-full lg:w-1/2">
             <div className="flex items-center gap-3 mb-6">
-              <Calculator className="text-secondary" size={32} />
-              <h3 className="font-headline-lg text-headline-md text-primary">
+              <Calculator className="text-[#daa520]" size={32} />
+              <h3 className="text-xl md:text-2xl font-bold text-primary-brand">
                 Calculadora de Economia
               </h3>
             </div>
 
-            <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 mb-6">
-              <label className="block font-label-caps text-label-caps text-primary mb-4 flex justify-between">
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-outline-variant/30 mb-6">
+              <label className="block font-bold text-primary-brand mb-4 flex justify-between items-center">
                 <span>Sua conta de luz mensal</span>
-                <span className="text-secondary text-xl border-b-2 border-secondary">
+                <span className="text-[#daa520] text-xl border-b-2 border-[#daa520]">
                   R$ {bill.toLocaleString('pt-BR')}
                 </span>
               </label>
@@ -102,20 +86,19 @@ const Savings: React.FC = () => {
                 step="50"
                 value={bill}
                 onChange={(e) => setBill(Number(e.target.value))}
-                className="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary"
+                className="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-[#ffcf1e]"
               />
-              <div className="flex justify-between text-xs text-outline mt-2 font-label-caps">
+              <div className="flex justify-between text-xs text-outline mt-2">
                 <span>R$ 200</span>
                 <span>R$ 5.000+</span>
               </div>
             </div>
 
-            {/* Cards de métricas */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+              <div className="bg-white p-5 rounded-xl shadow-sm border border-outline-variant/30">
                 <div className="flex items-center gap-2 mb-2">
-                  <Zap size={16} className="text-secondary" />
-                  <span className="font-label-caps text-[11px] text-outline uppercase tracking-wider">Economia mensal</span>
+                  <Zap size={16} className="text-[#daa520]" />
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-outline">Economia mensal</span>
                 </div>
                 <div className="text-2xl font-black text-green-600">
                   R$ {fmt(economiaMensal)}
@@ -123,34 +106,34 @@ const Savings: React.FC = () => {
                 <div className="text-xs text-outline mt-1">95% da conta atual</div>
               </div>
 
-              <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+              <div className="bg-white p-5 rounded-xl shadow-sm border border-outline-variant/30">
                 <div className="flex items-center gap-2 mb-2">
-                  <Clock size={16} className="text-secondary" />
-                  <span className="font-label-caps text-[11px] text-outline uppercase tracking-wider">Payback estimado</span>
+                  <Clock size={16} className="text-[#daa520]" />
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-outline">Payback estimado</span>
                 </div>
-                <div className="text-2xl font-black text-primary">
+                <div className="text-2xl font-black text-primary-brand">
                   {paybackAnos} anos
                 </div>
                 <div className="text-xs text-outline mt-1">Retorno do investimento</div>
               </div>
 
-              <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+              <div className="bg-white p-5 rounded-xl shadow-sm border border-outline-variant/30">
                 <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp size={16} className="text-secondary" />
-                  <span className="font-label-caps text-[11px] text-outline uppercase tracking-wider">Em 25 anos*</span>
+                  <TrendingUp size={16} className="text-[#daa520]" />
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-outline">Em 25 anos*</span>
                 </div>
-                <div className="text-2xl font-black text-primary">
+                <div className="text-2xl font-black text-primary-brand">
                   R$ {fmt(economia25Anos)}
                 </div>
                 <div className="text-xs text-outline mt-1">*com reajuste de 6% ao ano</div>
               </div>
 
-              <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100">
+              <div className="bg-white p-5 rounded-xl shadow-sm border border-outline-variant/30">
                 <div className="flex items-center gap-2 mb-2">
-                  <Calculator size={16} className="text-secondary" />
-                  <span className="font-label-caps text-[11px] text-outline uppercase tracking-wider">Investimento estimado</span>
+                  <Calculator size={16} className="text-[#daa520]" />
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-outline">Investimento estimado</span>
                 </div>
-                <div className="text-2xl font-black text-primary">
+                <div className="text-2xl font-black text-primary-brand">
                   R$ {fmt(investimentoEstimado)}
                 </div>
                 <div className="text-xs text-outline mt-1">Kit + instalação</div>
@@ -158,22 +141,20 @@ const Savings: React.FC = () => {
             </div>
           </div>
 
-          {/* Painel direito */}
           <div className="w-full lg:w-1/2 flex flex-col gap-6">
 
-            {/* Resultado principal */}
-            <div className="bg-primary text-white p-10 shadow-2xl relative overflow-hidden group rounded-xl">
-              <div className="absolute -right-20 -top-20 w-64 h-64 bg-secondary/10 rounded-full blur-3xl group-hover:bg-secondary/20 transition-all duration-700" />
+            <div className="bg-[#00357b] text-white p-10 rounded-2xl shadow-lg relative overflow-hidden group">
+              <div className="absolute -right-20 -top-20 w-64 h-64 bg-[#ffcf1e]/10 rounded-full blur-3xl group-hover:bg-[#ffcf1e]/20 transition-all duration-700" />
 
-              <p className="font-label-caps text-label-caps text-secondary mb-2 uppercase tracking-widest">
+              <p className="text-sm font-bold uppercase tracking-widest text-[#ffcf1e] mb-2">
                 Economia acumulada em 25 anos
               </p>
-              <h3 className="text-5xl md:text-6xl font-black text-white mb-4 tracking-tighter">
+              <h3 className="text-4xl md:text-5xl font-black text-white mb-4 tracking-tight">
                 R$ {fmt(economia25Anos)}
               </h3>
 
-              <p className="font-body-md text-white/70 mb-6 border-l-4 border-secondary pl-4 text-sm leading-relaxed">
-                Considerando tarifa de R$ 0,80/kWh com reajuste de 6% ao ano — os mesmos parâmetros usados nos orçamentos NPA. Após o payback de ~{paybackAnos} anos, a energia é praticamente gratuita pelo restante da vida útil.
+              <p className="text-white/70 mb-6 border-l-4 border-[#ffcf1e] pl-4 text-sm leading-relaxed">
+                Considerando tarifa de R$ 0,80/kWh com reajuste de 6% ao ano. Após o payback de ~{paybackAnos} anos, a energia é praticamente gratuita pelo restante da vida útil.
               </p>
 
               <a
@@ -181,29 +162,28 @@ const Savings: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackWA('simulador')}
-                className="inline-flex w-full md:w-auto items-center justify-center bg-secondary-container text-on-secondary-fixed font-label-caps text-label-caps px-8 py-4 shadow-lg hover:bg-secondary-fixed transition-all"
+                className="inline-flex w-full md:w-auto items-center justify-center bg-[#ffcf1e] text-[#705900] font-bold px-8 py-4 shadow-lg hover:bg-[#ffe087] transition-all rounded-xl"
               >
                 Pedir detalhamento no WhatsApp
               </a>
             </div>
 
-            {/* Comparativo parcela vs conta */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <h4 className="font-bold text-primary text-sm uppercase tracking-wider mb-4 flex items-center gap-2">
-                <CreditCardIcon size={16} className="text-secondary" />
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-outline-variant/30">
+              <h4 className="font-bold text-primary-brand text-sm uppercase tracking-wider mb-4 flex items-center gap-2">
+                <CreditCardIcon size={16} className="text-[#daa520]" />
                 Financiamento vs Conta de Luz
               </h4>
 
               <div className="space-y-3">
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-sm text-gray-600">Sua conta atual</span>
+                <div className="flex justify-between items-center py-2 border-b border-outline-variant/30">
+                  <span className="text-sm text-on-surface-variant">Sua conta atual</span>
                   <span className="font-black text-red-500 text-base">- R$ {fmt(bill)}/mês</span>
                 </div>
-                <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                  <span className="text-sm text-gray-600">Parcela estimada (24x)</span>
-                  <span className="font-black text-primary text-base">R$ {fmt(parcela24x)}/mês</span>
+                <div className="flex justify-between items-center py-2 border-b border-outline-variant/30">
+                  <span className="text-sm text-on-surface-variant">Parcela estimada (24x)</span>
+                  <span className="font-black text-primary-brand text-base">R$ {fmt(parcela24x)}/mês</span>
                 </div>
-                <div className={`flex justify-between items-center py-3 px-3 rounded-lg ${economiaSobreParcela >= 0 ? 'bg-green-50 border border-green-200' : 'bg-orange-50 border border-orange-200'}`}>
+                <div className={`flex justify-between items-center py-3 px-3 rounded-xl ${economiaSobreParcela >= 0 ? 'bg-green-50 border border-green-200' : 'bg-orange-50 border border-orange-200'}`}>
                   <span className={`text-sm font-bold ${economiaSobreParcela >= 0 ? 'text-green-700' : 'text-orange-700'}`}>
                     {economiaSobreParcela >= 0 ? '✓ Você economiza já no 1º mês' : 'Diferença pequena vs conta atual'}
                   </span>
@@ -225,7 +205,6 @@ const Savings: React.FC = () => {
   );
 };
 
-// Ícone de cartão (renomeado para evitar conflito se necessário)
 function CreditCardIcon({ size, className }: { size: number; className?: string }) {
   return (
     <svg

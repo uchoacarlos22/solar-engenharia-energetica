@@ -1,9 +1,9 @@
 export const colors = {
-  // Core (NPA Primary)
+  // Core (Primary)
   navy: '#1a2e4e',
   navyLight: '#25416d', 
   navyMid: '#1e365b',
-  // Solar (NPA Secondary)
+  // Solar (Secondary)
   solar: '#daa520',
   solarLight: '#eed07a',
   solarDark: '#b88a1a',
