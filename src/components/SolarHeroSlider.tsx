@@ -133,19 +133,19 @@ const SolarHeroSlider: React.FC = () => {
         <div className="max-w-xl md:max-w-2xl">
           <p
             key={`ey-${current}`}
-            className="font-label-caps text-[12px] md:text-label-caps text-secondary mb-3 md:mb-4 animate-[fadeSlide_0.5s_ease_forwards]"
+            className="font-body text-sm md:text-base uppercase tracking-[0.2em] text-secondary-container font-semibold mb-3 md:mb-4 animate-[fadeSlide_0.5s_ease_forwards] drop-shadow-lg"
           >
             {slide.eyebrow}
           </p>
           <h1
             key={`h-${current}`}
-            className="font-display-lg text-[28px] md:text-display-lg text-white mb-6 md:mb-8 leading-tight animate-[fadeSlide_0.5s_0.1s_ease_both]"
+            className="font-headline text-[32px] md:text-5xl lg:text-6xl font-extrabold text-white mb-6 md:mb-8 leading-[1.1] animate-[fadeSlide_0.5s_0.1s_ease_both] drop-shadow-lg"
           >
             {slide.headline}
           </h1>
           <p
             key={`s-${current}`}
-            className="font-body-lg text-[15px] md:text-body-lg text-white/80 mb-6 md:mb-8 animate-[fadeSlide_0.5s_0.2s_ease_both]"
+            className="font-body text-base md:text-lg text-white/90 mb-6 md:mb-8 animate-[fadeSlide_0.5s_0.2s_ease_both] leading-relaxed max-w-lg drop-shadow"
           >
             {slide.sub}
           </p>
@@ -158,7 +158,7 @@ const SolarHeroSlider: React.FC = () => {
               onClick={() => {
                 trackWA("solar_hub_slider_cta");
               }}
-              className="bg-secondary-container text-on-secondary-fixed font-label-caps text-[12px] md:text-label-caps px-6 md:px-8 py-4 md:py-5 hover:scale-[1.02] transition-transform active:scale-95 shadow-xl"
+              className="bg-secondary-container text-on-secondary-container font-headline text-sm md:text-base font-bold px-6 md:px-8 py-4 md:py-5 hover:scale-[1.02] transition-transform active:scale-95 shadow-xl rounded-lg"
             >
               Conhecer Solução
             </button>
@@ -167,7 +167,7 @@ const SolarHeroSlider: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackWA("solar_hub_slider_whatsapp")}
-              className="border-2 border-white/30 text-white font-label-caps text-[12px] md:text-label-caps px-6 md:px-8 py-4 md:py-5 hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+              className="border-2 border-white/50 text-white font-headline text-sm md:text-base font-semibold px-6 md:px-8 py-4 md:py-5 hover:bg-white/10 transition-all flex items-center justify-center gap-2 rounded-lg backdrop-blur-sm"
             >
               {slide.cta.label}
             </a>
