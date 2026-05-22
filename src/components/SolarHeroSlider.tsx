@@ -17,8 +17,10 @@ const slides = [
     headline: "Economize até 95% na sua conta de luz",
     sub: "Soluções de alto padrão para residências em São Paulo. Eficiência técnica e estética arquitetônica.",
     cta: {
-      label: "Simular Minha Economia",
-      path: "/energia-solar/residencial",
+      label: "Ver Projetos Residenciais",
+      waLabel: "Simular Minha Economia",
+      scrollTo: "#portfolio",
+      portfolioFilter: "residencial",
       waMsg:
         "Olá! 👋 Vi o site e quero uma simulação para minha residência.",
     },
@@ -30,8 +32,10 @@ const slides = [
     headline: "Reduza o OPEX do seu negócio AGORA",
     sub: "Sistemas fotovoltaicos de alta escala para empresas e indústrias com ROI acelerado em SP.",
     cta: {
-      label: "Solicitar Análise B2B",
-      path: "/energia-solar/empresas",
+      label: "Ver Projetos Comerciais",
+      waLabel: "Solicitar Análise B2B",
+      scrollTo: "#portfolio",
+      portfolioFilter: "comercial",
       waMsg:
         "Olá! 👋 Gostaria de uma análise estratégica de economia solar para minha empresa.",
     },
@@ -43,8 +47,10 @@ const slides = [
     headline: "Redução Real na Taxa Condominial",
     sub: "Energia solar para áreas comuns com gestão de rateio e aprovação garantida por especialistas.",
     cta: {
-      label: "Falar com Consultor",
-      path: "/energia-solar/condominios",
+      label: "Ver Projetos Condomínios",
+      waLabel: "Falar com Consultor",
+      scrollTo: "#portfolio",
+      portfolioFilter: "condominio",
       waMsg:
         "Olá! 👋 Sou síndico/administrador e quero saber sobre solar para condomínios.",
     },
@@ -56,8 +62,10 @@ const slides = [
     headline: "Eletropostos e Wallbox com Inteligência Solar",
     sub: "Infraestrutura de recarga para veículos elétricos sincronizada com sua geração fotovoltaica.",
     cta: {
-      label: "Ver Soluções EV",
-      path: "/energia-solar/mobilidade-eletrica",
+      label: "Ver Projetos Mobilidade",
+      waLabel: "Ver Soluções EV",
+      scrollTo: "#portfolio",
+      portfolioFilter: "mobilidade",
       waMsg:
         "Olá! 👋 Tenho interesse na instalação de carregadores EV (Wallbox/Eletroposto).",
     },
@@ -157,10 +165,16 @@ const SolarHeroSlider: React.FC = () => {
             <button
               onClick={() => {
                 trackWA("solar_hub_slider_cta");
+                const filter = slide.cta.portfolioFilter;
+                window.location.hash = `#portfolio-${filter}`;
+                const target = document.querySelector(slide.cta.scrollTo);
+                if (target) {
+                  target.scrollIntoView({ behavior: "smooth" });
+                }
               }}
               className="bg-secondary-container text-on-secondary-container font-headline text-sm md:text-base font-bold px-6 md:px-8 py-4 md:py-5 hover:scale-[1.02] transition-transform active:scale-95 shadow-xl rounded-lg"
             >
-              Conhecer Solução
+              {slide.cta.label}
             </button>
             <a
               href={`${WA_BASE}?text=${encodeURIComponent(slide.cta.waMsg)}`}
@@ -169,7 +183,7 @@ const SolarHeroSlider: React.FC = () => {
               onClick={() => trackWA("solar_hub_slider_whatsapp")}
               className="border-2 border-white/50 text-white font-headline text-sm md:text-base font-semibold px-6 md:px-8 py-4 md:py-5 hover:bg-white/10 transition-all flex items-center justify-center gap-2 rounded-lg backdrop-blur-sm"
             >
-              {slide.cta.label}
+              {slide.cta.waLabel}
             </a>
           </div>
         </div>

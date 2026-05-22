@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import hospital from "../assets/solar/images/portfolio/solar-hospital.webp";
 import galpao from "../assets/solar/images/portfolio/solar-instalacao-galpao-urbano.webp";
 import predioComercial from "../assets/solar/images/portfolio/solar-comercial-predio.jpg";
@@ -6,6 +6,9 @@ import salaoResidencial from "../assets/solar/images/portfolio/solar-residencial
 import telhadoResidencial from "../assets/solar/images/portfolio/solar-residencial-telhado-1.jpg";
 import telhadoResidencial2 from "../assets/solar/images/portfolio/solar-residencial-telhado-2.jpg";
 import chacara from "../assets/solar/images/portfolio/solar-residencial-chacara.jpeg";
+import mobCond from "../assets/solar/images/portfolio/mobilidade-cond.png";
+import mobPosto from "../assets/solar/images/portfolio/mobilidade-posto.png";
+import mobShop from "../assets/solar/images/portfolio/mobilidade-shop.png";
 import { X, ArrowLeft, ArrowRight, ZoomIn } from "lucide-react";
 import { trackWA, WA_BASE } from "../theme";
 
@@ -66,10 +69,40 @@ const projects = [
     power: "82 Módulos · 32 kWp",
     img: chacara,
   },
+  {
+    id: 8,
+    type: "mobilidade",
+    location: "Estacionamento EV - Shopping Plaza",
+    economy: "R$ 3.200/mês",
+    power: "12 Eletropostos · 22 kW",
+    img: mobShop,
+  },
+  {
+    id: 9,
+    type: "mobilidade",
+    location: "Condomínio Green Living - Wallbox",
+    economy: "R$ 1.800/mês",
+    power: "8 Wallbox · 7,4 kW cada",
+    img: mobCond,
+  },
+  {
+    id: 10,
+    type: "mobilidade",
+    location: "Posto de Combustível - Eletro Posto",
+    economy: "R$ 5.600/mês",
+    power: "6 Carregadores Rápidos · 50 kW",
+    img: mobPosto,
+  },
 ];
 
-export const Portfolio: React.FC = () => {
+export const Portfolio: React.FC<{ initialFilter?: string }> = ({ initialFilter }) => {
   const [filter, setFilter] = useState("todos");
+
+  useEffect(() => {
+    if (initialFilter) {
+      setFilter(initialFilter);
+    }
+  }, [initialFilter]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
@@ -107,7 +140,7 @@ export const Portfolio: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap gap-3 justify-center mb-10">
-          {["todos", "residencial", "comercial", "industrial", "condominio"].map((f) => (
+          {["todos", "residencial", "comercial", "industrial", "condominio", "mobilidade"].map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
@@ -148,7 +181,9 @@ export const Portfolio: React.FC = () => {
                         ? "bg-blue-600"
                         : project.type === "condominio"
                           ? "bg-sky-500"
-                          : "bg-slate-800"
+                          : project.type === "mobilidade"
+                            ? "bg-purple-600"
+                            : "bg-slate-800"
                   }`}
                 >
                   {project.type}
